@@ -1,0 +1,23 @@
+{
+  "name": "juv",
+  "version": "0.0.1",
+  "description": "Javascript Universal Validation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easa/juv.git"
+  },
+  "keywords": [],
+  "author": "easa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/easa/juv/issues"
+  },
+  "homepage": "https://github.com/easa/juv#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+}

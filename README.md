@@ -1,2 +1,2 @@
 # juv
-Javascript Universal Validation : npm package
+Javascript Universal Validation
