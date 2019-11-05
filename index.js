@@ -1,5 +1,6 @@
-export default {
-  init() {
-    console.log('initializing the validation model')
-  }
+const index = {
+	requestModel: {},
+	responseModel: {},
+	validationFunction: function () { }
 }
+module.exports = index
