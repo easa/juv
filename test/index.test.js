@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const app = require('../index')
 
 test('should be a module', () => {

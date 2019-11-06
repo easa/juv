@@ -1,0 +1,68 @@
+aliases:
+  - &restore-cache
+    keys:
+      - v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+      # fallback to using the latest cache if no exact match is found in case checksum fails
+      - v1-dependencies-{{ .Branch }}-
+  - &save-cache
+    paths:
+      - node_modules
+    key: v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+  - &install npm install
+  - &image-file circleci/node:10.16.0
+
+# Javascript Node CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+
+version: 2
+jobs:
+  lint-and-typecheck:
+    working_directory: ~/jest
+    docker:
+      - image: *image-file
+    steps:
+      - checkout
+      - restore-cache: *restore-cache
+      - run: *install
+      - save-cache: *save-cache
+      - run: 
+          command: npm run lint
+      - store_test_results:
+          path: reports/
+
+  build-node-latest:
+    working_directory: ~/jest
+    docker:
+      - image: *image-file
+    steps:
+      - checkout
+      - restore-cache: *restore-cache
+      - run: *install
+      - save-cache: *save-cache
+      - run:
+          command: npm start
+      - store_test_results:
+          path: reports/
+
+  test-jest-circus:
+    working_directory: ~/jest
+    docker:
+      - image: *image-file
+    steps:
+      - checkout
+      - restore-cache: *restore-cache
+      - run: *install
+      - save-cache: *save-cache
+      - run:
+          command: npm run test
+      - store_test_results:
+          path: reports/
+
+# Workflows enables us to run multiple jobs in parallel
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - lint-and-typecheck
+      - build-node-latest
+      - test-jest-circus

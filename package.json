@@ -1,11 +1,13 @@
 {
   "name": "juv",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "description": "Javascript Universal Validation",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "lint": "eslint ./app/ --fix --color --cache --config .eslintrc.yml -o reports/lint-results.xml",
+    "test": "jest ./test/ --color --config jest.config.js -o --noStackTrace --outputFile=reports/jest-results.xml",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
     "registry": "https://npm.pkg.github.com/@easa"
   },
   "devDependencies": {
+    "eslint": "^6.6.0",
     "jest": "^24.9.0"
   }
 }
