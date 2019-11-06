@@ -1,0 +1,11 @@
+._*
+*/._*
+*/*/._*
+results.xml
+config.json
+*.config.json
+coverage.*
+.circleci
+node_modules
+test
+reports
