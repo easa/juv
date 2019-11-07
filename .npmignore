@@ -6,6 +6,8 @@ config.json
 *.config.json
 coverage.*
 .circleci
-node_modules
 test
 reports
+.eslintcache
+.eslintrc.yml
+jest.config.js
