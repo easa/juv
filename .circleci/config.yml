@@ -66,3 +66,10 @@ workflows:
       - lint-and-typecheck
       - build-node-latest
       - test-jest-circus
+
+# Notification WebHooks which send the test result data to a remote server.
+notify:
+  webhooks:
+    # A list of hook hashes, containing the url field
+    # gitter hook
+    - url: $GITTER_WEBHOOK_URL
