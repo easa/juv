@@ -27,9 +27,9 @@ app.post('/register', (req, res) => {
 ```
 ## objects and functions
 
-|       no.       | feature | description                                    |
-|:---------------:|---------|------------------------------------------------|
-|  isValidState   | boolian | if validation fails it would be false          |
+| name            | type    | description                                    |
+|-----------------|---------|------------------------------------------------|
+| isValidState    | boolian | if validation fails it would be false          |
 | validationError | string  | if validation fails it would be string message |
-|  defualtModel   | object  | an object for use as default                   |
-|  sendJsonModel  | boolian | an object to fast format response model        |
+| defualtModel    | object  | an object for use as default                   |
+| sendJsonModel   | object  | an object to fast format response model        |
