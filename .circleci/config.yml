@@ -1,3 +1,5 @@
+version: 2
+
 aliases:
   - &restore-cache
     keys:
@@ -9,31 +11,27 @@ aliases:
       - node_modules
     key: v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
   - &install npm install
-  - &image-file circleci/node:10.16.0
 
-# Javascript Node CircleCI 2.0 configuration file
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.16.0
 
-version: 2
 jobs:
   lint-and-typecheck:
-    working_directory: ~/jest
-    docker:
-      - image: *image-file
+    <<: *defaults
     steps:
       - checkout
       - restore-cache: *restore-cache
       - run: *install
       - save-cache: *save-cache
-      - run: 
+      - run:
           command: npm run lint
       - store_test_results:
           path: reports/
 
   build-node-latest:
-    working_directory: ~/jest
-    docker:
-      - image: *image-file
+    <<: *defaults
     steps:
       - checkout
       - restore-cache: *restore-cache
@@ -45,9 +43,7 @@ jobs:
           path: reports/
 
   test-jest-circus:
-    working_directory: ~/jest
-    docker:
-      - image: *image-file
+    <<: *defaults
     steps:
       - checkout
       - restore-cache: *restore-cache
@@ -58,6 +54,24 @@ jobs:
       - store_test_results:
           path: reports/
 
+  publish-npm:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore-cache: *restore-cache
+      - run: *install
+      - save-cache: *save-cache
+      - run:
+          name: Publish to NPM
+          command: |
+            if [ $CIRCLE_BRANCH == "master" ]; then
+              npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+              npm publish
+              echo "Publish on $CIRCLE_BRANCH to npm!"
+            else 
+              echo "Only master branch gonna publish, It's on $CIRCLE_BRANCH now!"
+            fi
+
 # Workflows enables us to run multiple jobs in parallel
 workflows:
   version: 2
@@ -66,6 +80,14 @@ workflows:
       - lint-and-typecheck
       - build-node-latest
       - test-jest-circus
+  # This will update the package.json file and creates a tagged Git commit. Next, push the commit with tags
+  tagged-build:
+    jobs:
+      - publish-npm
+      - publish:
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
 
 # Notification WebHooks which send the test result data to a remote server.
 notify:
