@@ -20,9 +20,6 @@
     "url": "https://github.com/easa/juv/issues"
   },
   "homepage": "https://github.com/easa/juv#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@easa"
-  },
   "devDependencies": {
     "eslint": "^6.6.0",
     "jest": "^24.9.0"
