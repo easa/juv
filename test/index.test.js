@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
-const app = require('../index')
+const app = require('../')
 
-test('should be a module', () => {
-	expect(typeof app).toBe('object')
-	expect(typeof app.requestModel).toBe('object')
-	expect(typeof app.responseModel).toBe('object')
-	expect(typeof app.validationFunction).toBe('function')
+test('should be a function', () => {
+	expect(typeof app).toBe('function')
+})
+test('should return a custom middleware', () => {
+	var theApplication = app({ reqModel: {}, resModel: {} })
+	expect(typeof theApplication).toBe('function')
+})
+test('should return a  default middleware', () => {
+	var theApplication = app()
+	expect(typeof theApplication).toBe('function')
 })
