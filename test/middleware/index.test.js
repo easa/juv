@@ -1,6 +1,9 @@
 /* eslint-disable no-undef */
-const app = require('../../app/middleware/')
+const app = require('../../middleware')
 
-test('should be a module', () => {
+test('should return a function', () => {
 	expect(typeof app).toBe('function')
+})
+
+test('should append the models', () => {
 })
