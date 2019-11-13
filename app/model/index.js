@@ -1,4 +1,4 @@
-const { reqProto, resProto } = require('./proto')
+const { reqProto, resProto } = require('./proto/')
 module.exports = {
 	reqModel: reqProto({
 		// TODO: variables value could be regular expression function like : 

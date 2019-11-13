@@ -1,5 +1,5 @@
-const middlwareFunction = require('./middleware/')
-const defaultModel = require('./model/')
+const middlwareFunction = require('./app/middleware')
+const defaultModel = require('./app/model')
 
 const index = (model) => {
 	const options = {}

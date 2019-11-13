@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const sendfunction = require('../../../../model/proto/response/sendModel')
+const sendfunction = require('../../../app/model/proto/sendModel')
 
 test('should be a function', () => {
 	expect(typeof sendfunction).toBe('function')
