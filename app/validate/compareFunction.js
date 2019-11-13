@@ -21,6 +21,6 @@ module.exports = (indexName, modelItem, paramItem) => {
 		case 'function':
 			return modelItem(paramItem) ? '' : `violation on ${indexName}`
 		default:
-			throw new Error('user defined model should be object or function')
+			throw new Error('the model should be object or function')
 	}
 }

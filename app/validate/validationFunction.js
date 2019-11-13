@@ -6,21 +6,36 @@ const compare = require('./compareFunction')
  * @param {object} inputParam the request parameters
  */
 function validate(inputParam) {
-	val(this.model, inputParam)
+	// request is the "this"
+	var result = val(this.model, inputParam)
+	if (result.code === 401) {
+		this.isValid = false
+		this.error = 'parameters are not in a valid orientation!'
+		return 'parameters are not in a valid orientation!'
+	}
+	this.error = result.message 
+	return result.message 
 }
 
 module.exports = validate
 
 function val(model, param) {
-	let errorMessage = ''
+	if (typeof model !== 'object') return { message: 'Type of model is not valid, read more on github.com/easa/juv' }
+	if (typeof param !== 'object') return { code: 401 }
+	let errorMessage = '', theCode = 0
 	Object.keys(model).forEach(mName => {
 		if (typeof model[mName].properties === 'object') {
 			// TODO: pass the validation to the model!
-			errorMessage += val(model[mName].properties, param[mName])
+			let tempResult = val(model[mName].properties, param[mName])
+			if (tempResult.code === 401)
+				theCode = 401
+			else
+				errorMessage += tempResult.message
 		} else {
-			console.log(` the name is : ${mName}`)
-			errorMessage += compare(mName, model[mName], param[mName])
+			errorMessage += compare(mName, model[mName], param[mName]) || ''
 		}
 	})
-	return errorMessage
+	if (theCode === 401)
+		return { code: 401 }
+	return { message: errorMessage }
 }
