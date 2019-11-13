@@ -1,6 +1,6 @@
 {
   "name": "juv",
-  "version": "0.1.8",
+  "version": "0.3.0",
   "description": "Javascript Universal Validation",
   "type": "module",
   "main": "index.js",
@@ -20,9 +20,6 @@
     "url": "https://github.com/easa/juv/issues"
   },
   "homepage": "https://github.com/easa/juv#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@easa"
-  },
   "devDependencies": {
     "eslint": "^6.6.0",
     "jest": "^24.9.0"
