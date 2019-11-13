@@ -14,8 +14,6 @@ const index = (model) => {
 	return middlwareFunction(options)
 }
 
-// module.exports = index
-
 module.exports = function (opt) {
 	let local = {}
 	if (!opt) opt = {}
