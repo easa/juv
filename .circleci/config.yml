@@ -93,4 +93,4 @@ notify:
   webhooks:
     # A list of hook hashes, containing the url field
     # gitter hook
-    - url: $GITTER_WEBHOOK_URL
+    - url: https://webhooks.gitter.im/e/$GITTER_TOKEN
