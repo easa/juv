@@ -20,9 +20,10 @@ const juv = require('juv')
 juv(juv.defualtModel)
 app.use(juv)
 app.post('/register', (req, res) => {
-  if (!req.isValidState)
-    res.sendJsonModel(400, req.validationError)
-  // etc
+  if (req.error)
+    return res.sendJsonModel(400, req.error)
+  
+  // 
 })
 ```
 ## objects and functions

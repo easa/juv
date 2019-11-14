@@ -2,13 +2,12 @@ let reqModel, resModel
 module.exports = function (opt) {
 	reqModel = opt.reqModel
 	resModel = opt.resModel
-	return (opt.reqModel)
-		? app
-		: (r, s, n) => { n() }
+	return app
+	// otherwise? (r, s, n) => { n() }
 }
 
 function app(req, res, next) {
-	// 1. validate
+	// 1. TODO: validate
 	let input = {}
 	if (req.body)
 		Object.assign(input, req.body)
@@ -23,8 +22,7 @@ function app(req, res, next) {
 
 	req.model = Object.assign({}, reqModel)
 	res.model = Object.assign({}, resModel)
-
-	req.model.error = true
+	req.error = false
 
 	next()
 }
