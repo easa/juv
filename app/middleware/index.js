@@ -21,10 +21,10 @@ function app(req, res, next) {
 		? false
 		: err
 
-	// TODO: it's for version 2 actually : append send to model of resonse
+	// TODO: append send to model of resonse
 
-	req.model = Object.assign({}, reqModel)
-	res.model = Object.assign({}, resModel)
+	Object.assign(req.model, reqModel)
+	Object.assign(res.model, resModel)
 
 	next()
 }
