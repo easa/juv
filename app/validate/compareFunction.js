@@ -19,7 +19,12 @@ module.exports = (indexName, modelItem, paramItem) => {
 			}
 			return message
 		case 'function':
-			return modelItem(paramItem) ? '' : `violation on ${indexName}`
+			try {
+				return modelItem(paramItem) ? '' : `violation on ${indexName}`
+			} catch (e) {
+				console.log(`on validation juv on ${indexName} error is : ${e}`)
+				message += `violation on ${indexName}`
+			}
 		default:
 			throw new Error('the model should be object or function')
 	}

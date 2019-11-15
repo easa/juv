@@ -7,14 +7,13 @@ const compare = require('./compareFunction')
  */
 function validate(inputParam) {
 	// request is the "this"
-	var result = val(this.model, inputParam)
-	if (result.code === 401) {
-		this.isValid = false
-		this.error = 'parameters are not in a valid orientation!'
+	var validationResult = val(this.model, inputParam)
+	if (validationResult.code === 401) {
+		req.error = 'parameters are not in a valid orientation!'
 		return 'parameters are not in a valid orientation!'
 	}
-	this.error = result.message 
-	return result.message 
+	req.error = validationResult.message 
+	return validationResult.message 
 }
 
 module.exports = validate
