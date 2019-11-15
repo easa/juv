@@ -9,6 +9,8 @@
 
 Javascript Universal Validation
 
+** wait till version 0.8.0!  
+
 ## contributions
 We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch!
 
@@ -17,20 +19,29 @@ We profoundly accept your help. For contribute, please fork, and for merge, requ
 const express = require('express')
 const app = express()
 const juv = require('juv')
-juv(juv.defualtModel)
-app.use(juv)
+app.get('/:username', juv({ username: u => u.length > 5 }), (req, res) => {
+  if (req.error)
+    return res.sendModel(400, req.error)
+
+  res.send(`Hi ${username}`)
+})
+
+app.use(juv()) // juve takes model
 app.post('/register', (req, res) => {
   if (req.error)
-    return res.sendJsonModel(400, req.error)
-  
-  // 
+    return res.sendModel(400, req.error)
+
+  // your code 
 })
+
+app.listen(3000, () => console.log(`Example app listening on port 3000`))
 ```
 ## objects and functions
 
-| name            | type    | description                                    |
-|-----------------|---------|------------------------------------------------|
-| isValidState    | boolian | if validation fails it would be false          |
-| validationError | string  | if validation fails it would be string message |
-| defualtModel    | object  | an object for use as default                   |
-| sendJsonModel   | object  | an object to fast format response model        |
+| name            | type    | default    | description                                    |
+|-----------------|---------|---------|------------------------------------------------|
+| req.error    | string | `undefined` | if validation fails it would be a string of messages of validations among all params         |
+| req.model   | object  | `{}` |		an object for use as a variable to set the I/O in a beautiful way        |
+| res.model   | object  | `{ error: undefined, message: '', result: {}: ok : 'ok' }`	|	an object for use as a variable to set the I/O in a beautiful way       |
+| res.sendModel   | function  | `res.sendModel(400, 'not valid')` | this function use response model to send response        |
+
