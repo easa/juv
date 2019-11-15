@@ -6,20 +6,18 @@ const compare = require('./compareFunction')
  * @param {object} inputParam the request parameters
  */
 module.exports = function (req, inputParam) {
+	if (typeof req.model !== 'object') console.log('TODO: should handle this situation in middleware/index')
+	if (typeof inputParam !== 'object') return req.error = `parameters are not valid : ${inputParam}`
 	var validationResult = val(req.model, inputParam)
-	if (validationResult.code === 401) {
-		req.error = 'parameters are not in a valid orientation!'
-		return 'parameters are not in a valid orientation!'
-	}
-	req.error = validationResult.message 
-	return validationResult.message 
+	if (validationResult.code === 401)
+		return req.error = 'parameters are not in a valid orientation!'
+	return req.error = validationResult.message
 }
 
 function val(model, param) {
-	if (typeof model !== 'object') return { message: 'Type of model is not valid, read more on github.com/easa/juv' }
-	if (typeof param !== 'object') return { code: 401 }
 	let errorMessage = '', theCode = 0
 	Object.keys(model).forEach(mName => {
+		if (!param[mName]) return errorMessage += `${mName} is not provided|`
 		if (typeof model[mName].properties === 'object') {
 			// TODO: pass the validation to the model!
 			let tempResult = val(model[mName].properties, param[mName])
