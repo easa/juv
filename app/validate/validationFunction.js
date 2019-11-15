@@ -5,9 +5,8 @@ const compare = require('./compareFunction')
  * this is a property that attaches to request!
  * @param {object} inputParam the request parameters
  */
-function validate(inputParam) {
-	// request is the "this"
-	var validationResult = val(this.model, inputParam)
+module.exports = function (req, inputParam) {
+	var validationResult = val(req.model, inputParam)
 	if (validationResult.code === 401) {
 		req.error = 'parameters are not in a valid orientation!'
 		return 'parameters are not in a valid orientation!'
@@ -15,8 +14,6 @@ function validate(inputParam) {
 	req.error = validationResult.message 
 	return validationResult.message 
 }
-
-module.exports = validate
 
 function val(model, param) {
 	if (typeof model !== 'object') return { message: 'Type of model is not valid, read more on github.com/easa/juv' }

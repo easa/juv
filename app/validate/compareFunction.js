@@ -6,6 +6,10 @@
  * @param {string} paramItem the indexed input parameter 
  */
 module.exports = (indexName, modelItem, paramItem) => {
+	if (!paramItem)
+		return message += `_${indexName} _ is not provided!`
+	if (!(indexName && modelItem && paramItem))
+		throw new Error('Module problem on JUV')
 	let message = ''
 	switch (typeof modelItem) {
 		case 'object':
@@ -17,14 +21,10 @@ module.exports = (indexName, modelItem, paramItem) => {
 			if (paramItem && modelItem.regex && !modelItem.regex.test(paramItem)) {
 				message += `${(message ? ', ' : '')} on _${indexName}_ : ${modelItem.message}`
 			}
+			// TODO: other validation params should goes here! maybe it's better to be on a different module!
 			return message
 		case 'function':
-			try {
-				return modelItem(paramItem) ? '' : `violation on ${indexName}`
-			} catch (e) {
-				console.log(`on validation juv on ${indexName} error is : ${e}`)
-				message += `violation on ${indexName}`
-			}
+			return modelItem(paramItem) ? '' : `violation on ${indexName}`
 		default:
 			throw new Error('the model should be object or function')
 	}
