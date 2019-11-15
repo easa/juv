@@ -9,10 +9,14 @@
 
 Javascript Universal Validation
 
-** wait till version 0.8.0!  
+* for use in production please wait till version 0.8.0!   
 
+## what is the usage
+The `juv` from `const juv = require('juv')` is a constructor function that takes an object as a model of the parameters for validation!
+The `model` could contains json models for both request and response by passing `{ reqModel: {} , resModel: {} }`. but if `reqModel` left empty object or undefined then the model of request would be an empty object like `{}`. If `resModel` left empty or nothing then it would be the default one described later on table of #obejct and functoins!   
+* If the model didn't contain `reqModel` and `resModel` and just contains an object of the parameters then the model itself will place as `reqModel` that makes it easear for use as example!
 ## contributions
-We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch!
+We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch! 
 
 ## sample
 ```
@@ -21,7 +25,7 @@ const app = express()
 const juv = require('juv')
 app.get('/:username', juv({ username: u => u.length > 5 }), (req, res) => {
   if (req.error)
-    return res.sendModel(400, req.error)
+    return res.status(401).send(req.error)
 
   res.send(`Hi ${username}`)
 })
@@ -29,7 +33,7 @@ app.get('/:username', juv({ username: u => u.length > 5 }), (req, res) => {
 app.use(juv()) // juve takes model
 app.post('/register', (req, res) => {
   if (req.error)
-    return res.sendModel(400, req.error)
+    return res.status(401).send(req.error)
 
   // your code 
 })
