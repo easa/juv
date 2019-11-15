@@ -23,8 +23,8 @@ function app(req, res, next) {
 
 	// TODO: append send to model of resonse
 
-	Object.assign(req.model, reqModel)
-	Object.assign(res.model, resModel)
-
+	req.model = Object.assign({}, reqModel)
+	res.model = Object.assign({}, resModel)
+	
 	next()
 }

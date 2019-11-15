@@ -1,6 +1,6 @@
 {
   "name": "juv",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Javascript Universal Validation",
   "type": "module",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/easa/juv.git"
   },
-  "keywords": [],
+  "keywords": ["validation", "express"],
   "author": "easa",
   "license": "ISC",
   "bugs": {
