@@ -20,21 +20,21 @@ The `model` could contains json models for both request and response by passing 
 We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch! 
 
 ## sample
-Install Nodejs and then install express by running this command: `npm i express`. Then install juv using: `npm i juv`, then copy the file into app.js, run it using: `node app`, and then open this link: http://localhost:3000/martin on any browser to see the result!
-1. easy one:
+Install Nodejs and then install express by running this command: `npm i express`. Then install juv using: `npm i juv`, then copy the file into app.js, run it using: `node app`, and then open this link: http://localhost:3000/martin on any browser to see the result!   
+easy one:
 ```
 const express = require('express')
 const app = express()
 const juv = require('juv')
 // username should start with a m,a,r,t,i,n or e and continue with atleast four words or numbers up to 10!
-app.get('/:username', juv({ username: u => u.match(/^[martine][\w\d]{4,10}/gi) }), (req, res) => {
+app.get('/:username', juv({ username: u => u.match(/^[martine][\w\d]{4,10}$/gi) }), (req, res) => {
   if (req.error)
     return res.status(401).send(req.error)
-  res.send(`Hi ${username}`)
+  res.send(`Hi ${req.params.username}`)
 })
 app.listen(3000, () => console.log(`Example app listening on port 3000`))
 ```
-2. use bodyparser to get the body and define model as explained on #usage, then:
+use bodyparser to get the body and define model as explained on #usage, then:
 ```
 app.use(juv(model)) // juv takes model
 app.post('/register', (req, res) => {
