@@ -1,7 +1,7 @@
 const assignProperResult = {
 	'Object': objectCompare,
 	'RegExp': regexCompare,
-	'function': functionCompare
+	'Function': functionCompare
 }
 
 /**
@@ -11,15 +11,19 @@ const assignProperResult = {
  * @param {string} paramItem the indexed input parameter 
  */
 module.exports = (indexName, modelItem, paramItem) => {
-	if (!paramItem)
-		return message += `the '${indexName}' is not provided!`
+	if (!paramItem) // FIXME: the requirment of parameter should be optional
+		return `The '${indexName}' is not provided!`
 	if (!(indexName && modelItem))
-		throw new Error('Module problem on JUV')
-	let message = ''
-	if (typeof modelItem === 'object')
-		return assignProperResult[modelItem.constructor.name]
-	throw new Error('the model should be function, object or regex')
+		throw new Error('Module is not defined on JUV')
+	if (!(typeof modelItem).match('function|object'))
+		throw new Error('The model should be function, object or regex')
+
+	const trueTypeOfModel = modelItem.constructor.name
+	return assignProperResult[trueTypeOfModel](indexName, modelItem, paramItem)
 }
+
+
+// ---- compare functions: 
 
 function objectCompare(indexName, modelItem, paramItem) {
 	let message = ''
