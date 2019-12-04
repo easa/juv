@@ -64,6 +64,8 @@ jobs:
       - run:
           name: Publish to NPM
           command: |
+            node --version
+            npm --version
             if [ $CIRCLE_BRANCH == "master" ]; then
               npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
               npm publish
@@ -71,20 +73,7 @@ jobs:
             else 
               echo "Only master branch gonna publish, It's on $CIRCLE_BRANCH now!"
             fi
-      - run: 
-          name : Publish to github package
-          command: |
-            if [ $CIRCLE_BRANCH == "master" ]; then
-              npm set //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN
-              npm publish
-              echo "Publish on $CIRCLE_BRANCH to npm!"
-            else 
-              echo "Only master branch gonna publish, It's on $CIRCLE_BRANCH now!"
-            fi
             
-
-
-
 # Workflows enables us to run multiple jobs in parallel
 workflows:
   version: 2
