@@ -10,46 +10,77 @@
 
 Javascript Universal Validation
 
-* for use in production please wait till version 0.8.0!   
+> for use in production please wait till version 0.8.0!   
 
-## usage
-The `juv` from `const juv = require('juv')` is a constructor function that takes an object as a model of the parameters for validation!
-The `model` could contains json models for both request and response by passing `{ reqModel: {} , resModel: {} }`, but if the `reqModel` left as empty object or undefined then the model of request would be an empty object like `{}`. If the `resModel` left empty then it would be the default one described later on table of #obejct and functoins!   
-* If the model didn't contain `reqModel` and `resModel` and just contains an object of the parameters then the model itself will place as `reqModel` that makes it easear for use as example!
-## contributions
-We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch! 
+---
 
-## sample
-Install Nodejs and then install express by running this command: `npm i express`. Then install juv using: `npm i juv`, then copy the file into app.js, run it using: `node app`, and then open this link: http://localhost:3000/martin on any browser to see the result!   
-easy one:
+JUV is a set of [express.js](http://expressjs.com/) middlewares that use a developer-defined model to validate and sanitize input from the client and the advantage is to make a definition of view-models that makes the architecture model more rational and reliable. So make sure you got Nodejs, then install express using this command: `npm i express`. 
+
+## Installation
+Install it using npm (make sure that you have Node.js 8.x or newer): `npm i juv` or:
+
 ```
+npm install --save juv
+```
+
+## Basic guide
+> It's recommended that you have basic knowledge of the express.js module before you go on with this guide.
+
+Let's get started by writing a basic route to say hello to a set of names that matches our policy. 
+Then, you want to make sure that you validate the input and report any errors before accepting them.
+
+```js
 const express = require('express')
 const app = express()
 const juv = require('juv')
-// username should start with a m,a,r,t,i,n or e and continue with atleast four words or numbers up to 10!
-app.get('/:username', juv({ username: u => u.match(/^[martine][\w\d]{4,10}$/gi) }), (req, res) => {
+// POLICY: username should start with an a,b or c and continue with atleast four words or numbers up to 10!
+app.get('/:username', juv({ username: u => u.match(/^[abc][\w\d]{4,10}$/gi) }), (req, res) => {
   if (req.error)
     return res.status(401).send(req.error)
   res.send(`Hi ${req.params.username}`)
 })
 app.listen(3000, () => console.log(`Example app listening on port 3000`))
 ```
-use bodyparser to get the body and define model as explained on #usage, then:
+After copy the file into app.js, run it using: `node app`, then open this link: http://localhost:3000/abba on any browser to see the result! Here the `username` is `abba`.  
+*Voila!* Now, whenever a request that includes invalid `username` fields 
+is submitted, your server will respond erro with status `401` (means invalid parameter) 
+along with the the custome message you defined and send by `.send(req.error)`.
+
+The validations are user-defined so you can have your model for custom validation, let's call it view-models! 
+
+## explain
+The `juv` from `const juv = require('juv')` is a constructor function that takes an object as a model of the parameters for validation!
+The `model` could contains json models for both request and response by passing `{ reqModel: {} , resModel: {} }`, but if the `reqModel` left as empty object or undefined then the model of request would be an empty object like `{}`. If the `resModel` left empty then it would be the default one described later on table of #obejct and functoins!   
+* If the model didn't contain `reqModel` and `resModel` and just contains an object of the parameters then the model itself will place as `reqModel` that makes it easear for use as example!
+## contributions
+We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch! 
+
+## use view-model sample
+The extreme, wonderful and enjoyable thing about JUV is that it makes you able to define view-models and control every single parameter comes along like so:   
+In `helloViewModel.js` file:
+```js
+{
+  username: u => u.match(/^[abc][\w\d]{4,10}$/gi) 
+}
 ```
-app.use(juv(model)) // juv takes model
-app.post('/register', (req, res) => {
+In `app.js` file:
+```js
+const viewModel = require('./helloViewModel.js')
+app.use(juv(viewModel)) // juv takes view model
+app.post('/:username', (req, res) => {
   if (req.error)
     return res.status(401).send(req.error)
+
   // your code 
+
+  res.send(`Hi ${req.params.username}`)
 })
 
 ```
 ## objects and functions
 
-| name            | type    | default    | description                                    |
-|-----------------|---------|---------|------------------------------------------------|
-| req.error    | string | `undefined` | if validation fails it would be a string of messages of validations among all params         |
-| req.model   | object  | `{}` |		an object for use as a variable to set the I/O in a beautiful way        |
-| res.model   | object  | `{ error: undefined, message: '', result: {}: ok : 'ok' }`	|	an object for use as a variable to set the I/O in a beautiful way       |
-| res.sendModel   | function  | `res.sendModel(400, 'not valid')` | this function use response model to send response        |
+| name          | type     | default                                                    | description                                                                          |
+|---------------|----------|------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| req.error     | string   | `undefined`                                                | if validation fails it would be a string of messages of validations among all params |
+| req.model     | object   | `{}`                                                       | an object for use as a variable to set the I/O in a beautiful way                    |
 
