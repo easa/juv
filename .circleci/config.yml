@@ -64,6 +64,8 @@ jobs:
       - run:
           name: Publish to NPM
           command: |
+            node --version
+            npm --version
             if [ $CIRCLE_BRANCH == "master" ]; then
               npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
               npm publish
@@ -74,6 +76,11 @@ jobs:
       - run: 
           name : Publish to github package
           command: |
+            ver=$version
+            last=${ver:5:1}
+            ((last++))
+            ver=${var:0:5}$last
+            npm ver 
             if [ $CIRCLE_BRANCH == "master" ]; then
               npm set //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN
               npm publish
