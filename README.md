@@ -14,7 +14,7 @@ Javascript Universal Validation
 
 ---
 
-JUV is a set of [express.js](http://expressjs.com/) middlewares that use a developer-defined model to validate and sanitize input from the client and the advantage is to make a definition of view-models that makes the architecture model more rational and reliable. So make sure you got Nodejs, then install express using this command: `npm i express`. 
+JUV is a *clean*, *neat*, *easy to use and *professianl* set of [express.js](http://expressjs.com/) middlewares that use a developer-defined model to validate and sanitize input from the client and the advantage is to make a definition of view-models that makes the architecture model more rational and reliable. So make sure you got Nodejs, then install express using this command: `npm i express`. 
 
 ## Installation
 Install it using npm (make sure that you have Node.js 8.x or newer): `npm i juv` or:
@@ -46,20 +46,18 @@ After copy the file into app.js, run it using: `node app`, then open this link: 
 is submitted, your server will respond erro with status `401` (means invalid parameter) 
 along with the the custome message you defined and send by `.send(req.error)`.
 
-The validations are user-defined so you can have your model for custom validation, let's call it view-models! 
+The validations are user-defined so you can have your model for custom validation, let's call it view-models! Works beautifully with `req.params` and `req.body`.
 
-## explain
+## Explain
 The `juv` from `const juv = require('juv')` is a constructor function that takes an object as a model of the parameters for validation!
 The `model` could contains json models for both request and response by passing `{ reqModel: {} , resModel: {} }`, but if the `reqModel` left as empty object or undefined then the model of request would be an empty object like `{}`. If the `resModel` left empty then it would be the default one described later on table of #obejct and functoins!   
 * If the model didn't contain `reqModel` and `resModel` and just contains an object of the parameters then the model itself will place as `reqModel` that makes it easear for use as example!
-## contributions
-We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch! 
 
-## use view-model sample
+### Use view-model sample
 The extreme, wonderful and enjoyable thing about JUV is that it makes you able to define view-models and control every single parameter comes along like so:   
 In `helloViewModel.js` file:
 ```js
-{
+module.exports = {
   username: u => u.match(/^[abc][\w\d]{4,10}$/gi) 
 }
 ```
@@ -84,3 +82,6 @@ app.post('/:username', (req, res) => {
 | req.error     | string   | `undefined`                                                | if validation fails it would be a string of messages of validations among all params |
 | req.model     | object   | `{}`                                                       | an object for use as a variable to set the I/O in a beautiful way                    |
 
+## Contributions
+Please contribute!  
+We profoundly accept your help. For contribute, please fork, and for merge, request a pull on `develop` branch! 

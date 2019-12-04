@@ -1,6 +1,6 @@
 {
   "name": "juv",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Javascript Universal Validation",
   "type": "module",
   "main": "index.js",
