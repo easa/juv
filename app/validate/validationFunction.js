@@ -6,7 +6,6 @@ const compare = require('./compareFunction')
  * @param {object} inputParam the request parameters
  */
 module.exports = function (req, inputParam) {
-	if (typeof req.model !== 'object') console.log('TODO: should handle this situation in middleware/index')
 	if (typeof inputParam !== 'object') return req.error = `parameters are not valid : ${inputParam}`
 	var validationResult = val(req.model, inputParam)
 	if (validationResult.code === 401)
