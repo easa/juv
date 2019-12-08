@@ -2,8 +2,20 @@ const validate = require('../validate/validationFunction')
 let reqModel, resModel
 
 module.exports = function (opt) {
-	reqModel = opt.reqModel
-	resModel = opt.resModel
+	if (typeof opt !== 'object')
+		opt = {}
+
+	if (typeof opt.reqModel === 'object' && typeof opt.resModel === 'object') {
+		reqModel = opt.reqModel
+		resModel = opt.resModel
+	}
+	else if (typeof opt.resModel !== 'object')
+		reqModel = (typeof opt.reqModel === 'object') ? opt.reqModel : opt
+	else {
+		resModel = opt.resModel
+		reqModel = {}
+	}
+
 	return app
 }
 
