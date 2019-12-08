@@ -1,1 +1,4 @@
+title: JavaScript Universal Validation
+description: An express middlware to enable rational View-Model validation in your application.
+show_downloads: true
 theme: jekyll-theme-midnight
