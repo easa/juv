@@ -11,12 +11,16 @@ let reqModel, resModel
  * pass your model as parameter (viewModel)
  * @copyright easa
  * @example
- *					var juv = require('juv')
- * 					juv(model)
+ * 
+ * 		var express = requrie('express')
+ *		var juv = require('juv')
+ * 		app = express()
+ * 		app(juv(model))
  * 
  * @param {object} viewModel the model of expected params
  * also could contain the reqModel and resModel also could be the reqModel itself
  * {models} or { reqModel:{models}, resModel:{responseVase} }
+ * @returns {function} the middleware function to pass to express
  */
 module.exports = function (viewModel) {
 	
