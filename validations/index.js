@@ -15,6 +15,7 @@ module.exports = function (model, inputParam) {
 
 function val(model, param) {
 	let errorMessage = '', theCode = 0
+	console.log(model)
 	Object.keys(model).forEach(mName => {
 		if (!param[mName]) return errorMessage += `${mName} is not provided|`
 		if (typeof model[mName].properties === 'object') {
