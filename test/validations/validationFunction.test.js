@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const app = require('../../validations/validationFunction')
+const app = require('../../validations')
 const comarefunction = require('../../validations/compareFunction')
 jest.mock('../../validations/compareFunction')
 test('should be a function', () => {
