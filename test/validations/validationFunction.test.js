@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-const app = require('../../app/validate/validationFunction')
-const comarefunction = require('../../app/validate/compareFunction')
-jest.mock('../../app/validate/compareFunction')
+const app = require('../../validations/validationFunction')
+const comarefunction = require('../../validations/compareFunction')
+jest.mock('../../validations/compareFunction')
 test('should be a function', () => {
 	expect(typeof app).toBe('function')
 })
