@@ -1,6 +1,6 @@
 {
   "name": "juv",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "description": "Javascript Universal Validation",
   "type": "module",
   "main": "index.js",
@@ -25,6 +25,6 @@
     "jest": "^24.9.0"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com/easa"
+    "registry":"https://npm.pkg.github.com/@easa"
   }
 }
