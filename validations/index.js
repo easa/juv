@@ -5,12 +5,12 @@ const compare = require('./compareFunction')
  * this is a property that attaches to request!
  * @param {object} inputParam the request parameters
  */
-module.exports = function (req, inputParam) {
-	if (typeof inputParam !== 'object') return req.error = `parameters are not valid : ${inputParam}`
-	var validationResult = val(req.model, inputParam)
+module.exports = function (model, inputParam) {
+	if (typeof inputParam !== 'object') return `parameters are not valid : ${inputParam}`
+	var validationResult = val(model, inputParam)
 	if (validationResult.code === 401)
-		return req.error = 'parameters are not in a valid orientation!'
-	return req.error = validationResult.message
+		return 'parameters are not in a valid orientation!'
+	return validationResult.message
 }
 
 function val(model, param) {

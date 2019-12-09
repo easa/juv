@@ -1,11 +1,11 @@
 {
   "name": "juv",
-  "version": "0.3.17",
+  "version": "0.4.6",
   "description": "Javascript Universal Validation",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./app/ --fix --color --cache --config .eslintrc.yml -o reports/lint-results.xml",
+    "lint": "eslint ./validations/ ./index.js --fix --color --cache --config .eslintrc.yml -o reports/lint-results.xml",
     "test": "jest ./test/ --color --config jest.config.js -o --noStackTrace --outputFile=reports/jest-results.xml",
     "start": "node index.js"
   },

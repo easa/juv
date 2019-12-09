@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const app = require('../../app/validate/compareFunction')
+const app = require('../../validations/compareFunction')
 
 test('should be a function', () => {
 	expect(typeof app).toBe('function')

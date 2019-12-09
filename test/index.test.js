@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const app = require('../')
+const app = require('../index.js')
 
 test('should be a function', () => {
 	expect(typeof app).toBe('function')
